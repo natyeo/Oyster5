@@ -17,5 +17,10 @@ describe Oystercard do
   it 'reduces the balance by the amount passed as argument' do
     expect { oystercard.deduct_fare(1) }.to change{ oystercard.balance }.by -1
   end
-
+  it 'checks that card is not in use' do
+    expect(oystercard.in_journey?).to eq false
+  end
+  it 'puts card in use' do
+    expect{ oystercard.touch_in }.to change { oystercard.in_journey? }.from(false).to(true)
+  end
 end
