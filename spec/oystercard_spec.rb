@@ -23,4 +23,8 @@ describe Oystercard do
   it 'puts card in use' do
     expect{ oystercard.touch_in }.to change { oystercard.in_journey? }.from(false).to(true)
   end
+  it 'puts card out of use' do
+    oystercard.touch_in
+    expect{ oystercard.touch_out }.to change { oystercard.in_journey? }.from(true).to(false)
+  end
 end
