@@ -9,4 +9,9 @@ describe Oystercard do
   it 'increments the balance by the amount passed as argument' do
     expect{ subject.top_up(1) }.to change{ subject.balance }.by 1
   end
+  it 'has a maximum balance and will prevent the balance to exceed it' do
+    max_balance = Oystercard::MAX_BALANCE
+    subject.top_up(max_balance)
+    expect { oystercard.top_up(1) }.to raise_error "Cannot top up, balance will exceed #{max_balance} Pounds"
+  end
 end
