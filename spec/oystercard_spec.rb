@@ -7,11 +7,15 @@ describe Oystercard do
   end
   it { is_expected.to respond_to(:top_up).with(1).arguments }
   it 'increments the balance by the amount passed as argument' do
-    expect{ subject.top_up(1) }.to change{ subject.balance }.by 1
+    expect{ oystercard.top_up(1) }.to change{ oystercard.balance }.by 1
   end
-  it 'has a maximum balance and will prevent the balance to exceed it' do
+  it 'raises an error when the maximum balance is exceeded' do
     max_balance = Oystercard::MAX_BALANCE
-    subject.top_up(max_balance)
+    oystercard.top_up(max_balance)
     expect { oystercard.top_up(1) }.to raise_error "Cannot top up, balance will exceed #{max_balance} Pounds"
   end
+  it 'reduces the balance by the amount passed as argument' do
+    expect { oystercard.deduct_fare(1) }.to change{ oystercard.balance }.by -1
+  end
+
 end
