@@ -2,6 +2,7 @@ require 'oystercard'
 
 describe Oystercard do
   subject(:oystercard) { described_class.new }
+  let(:entry_station) { double(:entry_station) }
 
   it 'checks that a new card has a balance of 0' do
     expect(oystercard.balance).to eq 0
@@ -23,21 +24,21 @@ describe Oystercard do
   end
 
   it 'checks that card is not in use' do
-    expect(oystercard.in_journey?).to eq false
+    expect(oystercard.entry_station).to eq nil
   end
 
   context 'Checks minimum balance' do
     before do
-      expect(oystercard.balance).to be > Oystercard::MIN_BALANCE
+      oystercard.top_up(Oystercard::MIN_BALANCE)
+    end
 
-      it 'puts card in use' do
-        expect{ oystercard.touch_in }.to change{ oystercard.in_journey? }.from(false).to(true)
-      end
+    it 'puts card in use' do
+      expect{ oystercard.touch_in(:entry_station) }.to change{ oystercard.entry_station }.from(nil).to(:entry_station)
+    end
 
-      it 'puts card out of use' do
-        oystercard.touch_in
-        expect{ oystercard.touch_out }.to change{ oystercard.in_journey? }.from(true).to(false)
-      end
+    it 'puts card out of use' do
+      oystercard.touch_in(:entry_station)
+      expect{ oystercard.touch_out }.to change{ oystercard.entry_station }.from(:entry_station).to(nil)
     end
   end
   
@@ -47,8 +48,16 @@ describe Oystercard do
     end
   end
 
+  describe '#touch_in' do
+  it 'remembers the entry station on touch in' do
+    oystercard.top_up(Oystercard::MIN_BALANCE)
+    oystercard.touch_in(:entry_station)
+      expect(oystercard.entry_station).to eq (:entry_station)
+    end
+  end
+
   it 'checks the minimum balance on touch in' do
     oystercard.balance < Oystercard::MIN_BALANCE
-    expect { oystercard.touch_in }.to raise_error "Cannot touch in, balance too low"
+    expect { oystercard.touch_in(:entry_station) }.to raise_error "Cannot touch in, balance too low"
   end
 end
