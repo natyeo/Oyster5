@@ -7,11 +7,15 @@ class Oystercard
   attr_reader :balance
   attr_reader :in_use
   attr_reader :entry_station
+  attr_reader :exit_station
+  attr_reader :journey_history
 
   def initialize(balance = 0)
     @balance = balance
     @in_use = false
     @entry_station = nil
+    @journey_history = Hash.new
+    @exit_station = nil
   end
 
   def top_up(amount)
@@ -25,9 +29,14 @@ class Oystercard
     @entry_station = entry_station
   end
   
-  def touch_out
+  def touch_out(exit_station = "Aldwych")
     deduct_fare(MIN_FARE)
+    @exit_station = exit_station
     @in_use = false
+    @journey_history = { 
+      :origin => @entry_station,
+      :destination => @exit_station
+    }
     @entry_station = nil
   end
 
