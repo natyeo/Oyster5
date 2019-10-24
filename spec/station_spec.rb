@@ -1,10 +1,11 @@
 require 'station'
 
 describe Station do
-  let(:name) { double(:name) }
-  let(:zone) { double(:zone) }
-  it 'is a station with a name and a zone' do
-    station = Station.new(name, zone)
-    expect(station).to be_an_instance_of Station
-  end 
+  subject {described_class.new("Makers Lane", 1)}
+  it 'knows its name' do
+    expect(subject.name).to eq("Makers Lane")
+  end
+  it 'knows its zone' do
+    expect(subject.zone).to eq(1)
+  end
 end 
