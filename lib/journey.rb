@@ -1,5 +1,7 @@
 class Journey
   
+  PENALTY_FARE = 6
+
   attr_reader :entry_station
   attr_reader :exit_station
 
@@ -13,5 +15,9 @@ class Journey
       true
     end
   end
+
+  def fare
+    PENALTY_FARE
+  end 
 
 end
