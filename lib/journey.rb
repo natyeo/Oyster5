@@ -17,7 +17,11 @@ class Journey
   end
 
   def fare
-    PENALTY_FARE 
+   if complete?
+      1
+   else
+     PENALTY_FARE 
+   end
   end 
 
   def finish(station)
