@@ -43,5 +43,6 @@ describe Journey do
       expect(subject).to be_complete
     end 
   end 
+
 end
 

@@ -1,3 +1,5 @@
+require_relative 'journey'
+
 class Oystercard
   
   MIN_BALANCE = 1
@@ -6,16 +8,13 @@ class Oystercard
 
   attr_reader :balance
   attr_reader :in_use
-  attr_reader :entry_station
-  attr_reader :exit_station
   attr_reader :journey_history
+  attr_reader :journey
 
   def initialize(balance = 0)
     @balance = balance
     @in_use = false
-    @entry_station = nil
-    @journey_history = Hash.new
-    @exit_station = nil
+    @journey_history = Array.new
   end
 
   def top_up(amount)
@@ -26,18 +25,15 @@ class Oystercard
   def touch_in(entry_station = "Aldgate East")
     raise "Cannot touch in, balance too low" if balance < MIN_BALANCE
     @in_use = true
-    @entry_station = entry_station
+    @journey = Journey.new
+    @journey.start(entry_station)
   end
   
   def touch_out(exit_station = "Aldwych")
-    deduct_fare(MIN_FARE)
-    @exit_station = exit_station
     @in_use = false
-    @journey_history = { 
-      :origin => @entry_station,
-      :destination => @exit_station
-    }
-    @entry_station = nil
+    @journey.finish(exit_station)
+    deduct_fare(@journey.fare)
+    @journey_history.push(@journey.current_journey)
   end
 
    private

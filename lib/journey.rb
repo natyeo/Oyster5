@@ -4,10 +4,16 @@ class Journey
 
   attr_reader :entry_station
   attr_reader :exit_station
+  attr_reader :current_journey
 
   def initialize(entry_station = "", exit_station = "")
     @entry_station = entry_station
     @exit_station = exit_station
+  end
+
+  def start(station)
+    @entry_station = station
+    @current_journey = { entry: @entry_station, exit: @exit_station}
   end
 
   def complete?
@@ -25,6 +31,8 @@ class Journey
   end 
 
   def finish(station)
+    @exit_station = station
+    @current_journey = { entry: @entry_station, exit: @exit_station}
     self 
   end 
 
