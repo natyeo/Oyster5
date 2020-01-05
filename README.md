@@ -1,5 +1,7 @@
 # Oystercard Challenge
 
+A program imitating a simple TFL oystercard system.
+
 ## User requirements
 ```
 In order to use public transport
@@ -50,3 +52,31 @@ In order to be charged the correct amount
 As a customer
 I need to have the correct fare calculated
 ```
+## Getting started
+- clone this repo
+- bundle install
+
+## Usage
+```
+$ irb
+
+2.6.3 :001 > require './lib/oystercard.rb'
+ => true
+
+2.6.3 :002 > oyster = Oystercard.new
+ => #<Oystercard:0x00007f87849ade00 @balance=0, @in_use=false, @journey_history=[]>
+
+2.6.3 :003 > oyster.top_up(10)
+ => 10
+
+2.6.3 :004 > oyster.touch_in('Aldgate East')
+ => {:entry=>"Aldgate East", :exit=>""}
+
+2.6.3 :005 > oyster.touch_out('Kings Cross')
+ => [{:entry=>"Aldgate East", :exit=>"Kings Cross"}]
+
+2.6.3 :006 > oyster.balance
+ => 9
+
+## Running tests
+`rspec`

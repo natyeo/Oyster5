@@ -1,5 +1,4 @@
-
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 ruby '2.6.3'
 
@@ -8,4 +7,3 @@ group :development, :test do
 end
 
 git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
-
