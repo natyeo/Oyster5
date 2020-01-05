@@ -1,6 +1,7 @@
 class Journey
 
   PENALTY_FARE = 6
+  MIN_FARE = 1
 
   attr_reader :entry_station, :exit_station, :current_journey
 
@@ -21,11 +22,7 @@ class Journey
   end
 
   def fare
-    if complete?
-      1
-    else
-      PENALTY_FARE
-   end
+    complete? ? MIN_FARE : PENALTY_FARE
   end
 
   def finish(station)

@@ -27,7 +27,7 @@ describe Oystercard do
     allow(journey_double).to receive(:fare) { 1 }
     oystercard.top_up(50)
     oystercard.touch_in(entry_station)
-    expect { oystercard.touch_out(exit_station) }.to change { oystercard.balance }.by (-Oystercard::MIN_FARE)
+    expect { oystercard.touch_out(exit_station) }.to change { oystercard.balance }.by -1
   end
 
   it 'checks that card is not in use' do
@@ -56,7 +56,7 @@ describe Oystercard do
         oystercard.touch_in(:entry_station)
       end
       it 'deducts the fare amount from the oystercard on touch out' do
-        expect { oystercard.touch_out(exit_station) }.to change { oystercard.balance }.by -Oystercard::MIN_FARE
+        expect { oystercard.touch_out(exit_station) }.to change { oystercard.balance }.by -1
       end
     end
   end
