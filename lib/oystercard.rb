@@ -1,7 +1,6 @@
 require_relative 'journey'
 
 class Oystercard
-
   MIN_BALANCE = 1
   MAX_BALANCE = 90
 
@@ -15,11 +14,13 @@ class Oystercard
 
   def top_up(amount)
     raise "Cannot top up, balance will exceed £#{MAX_BALANCE}" if exceed_max_bal?(amount)
+
     @balance += amount
   end
 
   def touch_in(entry_station)
     raise 'Cannot touch in, balance too low' if insufficient_bal?
+
     @in_use = true
     @journey = Journey.new
     @journey.start(entry_station)

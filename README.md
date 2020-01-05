@@ -53,8 +53,8 @@ As a customer
 I need to have the correct fare calculated
 ```
 ## Getting started
-- clone this repo
-- bundle install
+- Clone this repo
+- Install Gems using `bundle install`
 
 ## Usage
 ```
@@ -77,6 +77,7 @@ $ irb
 
 2.6.3 :006 > oyster.balance
  => 9
+```
 
 ## Running tests
 `rspec`

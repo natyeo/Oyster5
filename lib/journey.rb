@@ -1,5 +1,4 @@
 class Journey
-
   PENALTY_FARE = 6
   MIN_FARE = 1
 
@@ -25,8 +24,7 @@ class Journey
 
   def finish(station)
     @exit_station = station
-    @current_journey = { entry: @entry_station, exit: @exit_station}
+    @current_journey = { entry: @entry_station, exit: @exit_station }
     self
   end
-
 end
