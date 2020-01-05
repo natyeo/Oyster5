@@ -1,10 +1,8 @@
 class Journey
-  
+
   PENALTY_FARE = 6
 
-  attr_reader :entry_station
-  attr_reader :exit_station
-  attr_reader :current_journey
+  attr_reader :entry_station, :exit_station, :current_journey
 
   def initialize(entry_station = "", exit_station = "")
     @entry_station = entry_station
@@ -13,7 +11,7 @@ class Journey
 
   def start(station)
     @entry_station = station
-    @current_journey = { entry: @entry_station, exit: @exit_station}
+    @current_journey = { entry: @entry_station, exit: @exit_station }
   end
 
   def complete?
@@ -23,17 +21,17 @@ class Journey
   end
 
   def fare
-   if complete?
+    if complete?
       1
-   else
-     PENALTY_FARE 
+    else
+      PENALTY_FARE
    end
-  end 
+  end
 
   def finish(station)
     @exit_station = station
     @current_journey = { entry: @entry_station, exit: @exit_station}
-    self 
-  end 
+    self
+  end
 
 end
